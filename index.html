@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مُيسّر الاستثمار العُماني | دليل اختيار الموقع الأنسب</title>
+  
+  <!-- خط عربي واضح ومريح للقراءة -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- مكتبة الخرائط التفاعلية Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- رابط تخطي سريع لمستخدمي لوحة المفاتيح وقارئات الشاشة -->
+  <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي (Alt + M)</a>
+
+  <!-- فلاتر SVG حقيقية لمحاكاة وتصحيح عمى الألوان -->
+  <svg class="sr-only" aria-hidden="true">
+    <defs>
+      <filter id="protanopia">
+        <feColorMatrix type="matrix" values="0.567,0.433,0,0,0 0.558,0.442,0,0,0 0,0.242,0.758,0,0 0,0,0,1,0"/>
+      </filter>
+      <filter id="deuteranopia">
+        <feColorMatrix type="matrix" values="0.625,0.375,0,0,0 0.7,0.3,0,0,0 0,0.3,0.7,0,0 0,0,0,1,0"/>
+      </filter>
+      <filter id="tritanopia">
+        <feColorMatrix type="matrix" values="0.95,0.05,0,0,0 0,0.433,0.567,0,0 0,0.475,0.525,0,0 0,0,0,1,0"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="brand-badge" aria-hidden="true">🇴🇲</span>
+        <div>
+          <h1>مُيسّر الاستثمار العُماني</h1>
+          <p class="subtitle">تحليل المواقع الاستثمارية بالبيانات الحية ومعايير الوصول الشاملة</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="readPageBtn" class="btn btn-outline" aria-label="قراءة ملخص الصفحة صوتياً">
+          🔊 استمع للملخص (Alt + V)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="container" role="main">
+    <!-- قسم تحديد معايير البزنس -->
+    <section class="filter-panel card" aria-labelledby="filter-heading">
+      <h2 id="filter-heading">1. حدد معايير مشروعك الاستثماري</h2>
+      <form id="investForm" class="filter-grid">
+        <div class="form-group">
+          <label for="businessType">نوع البزنس / النشاط</label>
+          <select id="businessType" name="businessType">
+            <option value="all">جميع الأنشطة</option>
+            <option value="cafe">مقهى مختص / مطعم</option>
+            <option value="tourism">منتجع / نُزل / نشاط سياحي</option>
+            <option value="perfume">متجر عطور وبخور وهدايا</option>
+            <option value="services">مكتب خدمات / تقنية / تجارة</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="targetAudience">الفئة المستهدفة الرئيسية</label>
+          <select id="targetAudience" name="targetAudience">
+            <option value="all">جميع الفئات</option>
+            <option value="tourists">السياح والزوار الدوليون</option>
+            <option value="families">العائلات والمقيمون</option>
+            <option value="youth">الشباب وطلبة الجامعات</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="priorityFactor">الأولوية الأهم للموقع</label>
+          <select id="priorityFactor" name="priorityFactor">
+            <option value="balanced">توازن عام (السياحة + السكان)</option>
+            <option value="tourism_high">أعلى إقبال سياحي</option>
+            <option value="population_high">أعلى كثافة سكانية</option>
+            <option value="budget_friendly">إيجار شهري اقتصادي (OMR)</option>
+          </select>
+        </div>
+
+        <div class="form-group form-submit">
+          <button type="submit" class="btn btn-primary">🔍 تحليل المواقع الأنسب</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- منطقة العرض المزدوجة: النتائج + الخريطة وبيانات ويكيبيديا -->
+    <div class="workspace-grid">
+      <!-- قائمة المواقع المرشحة -->
+      <section aria-labelledby="results-heading">
+        <div class="section-header">
+          <h2 id="results-heading">2. المواقع الأنسب لمشروعك</h2>
+          <span id="resultsCount" class="badge" aria-live="polite">6 مواقع</span>
+        </div>
+        <div id="locationsList" class="locations-list" role="list"></div>
+      </section>
+
+      <!-- الخريطة التفاعلية وبطاقة البيانات الموثقة -->
+      <aside class="map-panel" aria-labelledby="map-heading">
+        <div class="card map-card">
+          <div class="section-header">
+            <h2 id="map-heading">3. الخريطة التفاعلية والبيانات الموثقة</h2>
+            <span class="hint-text">اضغط على أي موقع لعرض تفاصيله</span>
+          </div>
+          
+          <!-- الخريطة (تختفي تلقائياً في وضع القراءة الهادئة لتقليل التشتت) -->
+          <div id="omanMap" class="map-container" role="region" aria-label="خريطة سلطنة عمان التفاعلية للمواقع الاستثمارية"></div>
+
+          <!-- بطاقة تفاصيل المنطقة وبيانات Wikipedia الحية -->
+          <article id="regionDetails" class="region-details" aria-live="polite">
+            <div class="details-top">
+              <h3 id="detailTitle">اختر موقعاً لعرض التحليل التفصيلي</h3>
+              <button id="speakDetailBtn" class="btn btn-sm btn-secondary" aria-label="قراءة تفاصيل هذه المنطقة صوتياً">
+                🔊 قراءة صوتية
+              </button>
+            </div>
+            <div id="detailMetrics" class="metrics-bar"></div>
+            <div class="wiki-box">
+              <strong>📚 نبذة موثقة (Wikipedia API):</strong>
+              <p id="wikiSummary">جاري تحميل البيانات الجغرافية والسياحية...</p>
+              <a id="wikiLink" href="#" target="_blank" rel="noopener noreferrer" class="wiki-link">اقرأ المزيد في ويكيبيديا ↗</a>
+            </div>
+          </article>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>مشروع مشارك في تحدي <strong>مجان للمبرمجين (UX/UI Accessibility)</strong> | Manar Al Nabhani©</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="a11y-toolkit.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

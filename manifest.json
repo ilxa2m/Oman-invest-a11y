@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Oman Accessibility Toolkit - أداة الوصول الشاملة",
+  "version": "1.0.0",
+  "description": "إضافة متصفح لتسهيل قراءة المواقع، تكبير النصوص، فلاتر عمى الألوان، والقراءة الصوتية.",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["style.css"],
+      "js": ["a11y-toolkit.js"]
+    }
+  ]
+}
